@@ -35,9 +35,9 @@
     <!--end::Head-->
     <!--begin::Body-->
     <body  id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"  class="app-default" >
-		<div class="container-md">
+		<div class="container-xs">
             <div x-data="main">
-                <div class="row">
+                <div class="row p-3">
                     <div class="col-12">
                     <select 
                         class="form-select form-select-lg mt-3 mb-3"
@@ -59,8 +59,8 @@
                 </div>
             </div>
         
-            <div class="card shadow-sm" x-show="currentCode != ''">
-                <div class="card-body">
+            <div class="card shadow-sm p-0 m-0" x-show="currentCode != ''">
+                <div class="card-body p-0 m-0">
                     <div class="table-responsive">
                         <table class="table table-rounded border gy-7 gs-7">
                             <thead>
