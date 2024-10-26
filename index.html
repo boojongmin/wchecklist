@@ -86,7 +86,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <textarea class="form-control" placeholder="기타 처치 내용을 입력해주세요." x-model="etcData" @input="saveEtcData($event.target.value)"></textarea>
+                            <textarea class="form-control" placeholder="기타 내용 기술" x-model="etcData" @input="saveEtcData($event.target.value)"></textarea>
                         </div>
                     </div>
                 </div>
@@ -115,10 +115,11 @@
                 {"scope": "검사2", "task": "직장 검체 채취(rectal swab)", "count": 0},
                 {"scope": "검사2", "task": "직장 수지 검사(DRE)", "count": 0},
                 {"scope": "검사2", "task": "COVID-19 검사", "count": 0},
-                {"scope": "치료 및 처치1", "task": "단순 드레싱(catheter, tube등)<br/>**수술부위는 급성기 이후 가능", "count": 0},
+                {"scope": "치료 및 처치1", "task": "단순 드레싱(일반, 시술 상처 등)", "count": 0},
+                {"scope": "치료 및 처치1", "task": "복합 드레싱(catheter, tube등)<br/>**수술부위는 급성기 이후 가능", "count": 0},
                 {"scope": "치료 및 처치1", "task": "발사 자체(stitch out)", "count": 0},
                 {"scope": "치료 및 처치1", "task": "배액관 제거(흉강 배액관, 복강 배액관, 창상 등)<br/>**chest tube, pericardial cath, Homovac, Barovac 제외", "count": 0},
-                {"scope": "치료 및 처치1", "task": "누공 관리 및 제거<br>(위루관 또는 장루관, 방광루관 등", "count": 0},
+                {"scope": "치료 및 처치1", "task": "누공 관리 및 제거<br>(위루관 또는 장루관, 방광루관 등)", "count": 0},
                 {"scope": "치료 및 처치2", "task": "유치 도뇨관(foley catheter) 삽입<br>★소아는 의사가 실행", "count": 0},
                 {"scope": "치료 및 처치2", "task": "각종 카테터 제거<br>(Mahurkar, Perm, PICC, chemoport 등)", "count": 0},
                 {"scope": "치료 및 처치2", "task": "C-line 제거 ★RRT 간호사 수행", "count": 0},
