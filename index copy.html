@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko" >
+    <!--begin::Head-->
+    <head><base href=""/>
+        <title>처치간호사 일일 업무량</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="shortcut icon" href="./assets/media/logos/favicon.ico"/>
+        <!--begin::Fonts(mandatory for all pages)-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>        <!--end::Fonts-->
+                    <!--begin::Vendor Stylesheets(used for this page only)-->
+                            <!-- <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css"/> -->
+                            <!-- <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/> -->
+                        <!--end::Vendor Stylesheets-->
+                    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+                            <link href="./assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
+                            <link href="./assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
+                        <!--end::Global Stylesheets Bundle-->
+        <script>
+            // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking)
+            if (window.top != window.self) {
+                window.top.location.replace(window.self.location.href);
+            }
+        </script>
+
+    </head>
+    <!--end::Head-->
+    <!--begin::Body-->
+    <body  id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"  class="app-default" >
+		<div class="container-xs">
+            <div x-data="main">
+                <div class="row p-3">
+                    <div class="col-12">
+                    <select 
+                        class="form-select form-select-lg mt-3 mb-3"
+                        x-model="selectedCode"
+                        @change="changeLocation($event.target.value)"
+                    >
+                        <option value="">선택하세요</option>
+                        <template x-for="item in locations">
+                            <option :value="item.code" :selected="item.code === currentCode" x-text="item.label"></option>
+                        </template>
+                    </select>
+                </div>
+        
+            <div class="card shadow-sm" x-show="currentCode == ''">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h2>부서를 선택해주세요</h2>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="card shadow-sm p-0 m-0" x-show="currentCode != ''">
+                <div class="card-body p-0 m-0">
+                    <div class="table-responsive">
+                        <table class="table table-rounded border gy-7 gs-7">
+                            <thead>
+                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                    <th class="text-center">처치범위</th>
+                                    <th class="text-center">처치업무</th>
+                                    <th colspan="2" class="text-center">버튼</th>
+                                    <th class="text-center">횟수</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="item in items">
+                                    <tr>
+                                        <td x-text="item.scope"></td>
+                                        <td x-html="item.task"></td>
+                                        <td class="p-3"><button class="btn btn-icon btn-danger" @click="setData(item, -1)"><i class="fa-solid fa-minus"></i></button></td>
+                                        <td class="p-3"><button class="btn btn-icon btn-primary" @click="setData(item, 1)"><i class="fa-solid fa-plus"></i></button></td>
+                                        <td class="text-center" x-text="item.count"></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <textarea class="form-control" placeholder="기타 내용 기술" x-model="etcData" @input="saveEtcData($event.target.value)"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        
+            <script is:inline>
+            const code = location.hash.replace('#', '');
+        
+            const locations = [
+                {code: 'dept1', label:'부서1'}, 
+                {code: 'dept2', label:'부서2'},
+                {code: 'dept3', label:'부서3'},
+                {code: 'dept4', label:'부서4'},
+            ];
+        
+            const defaultItems = [
+                {"scope": "검사1", "task": "혈액배양검사(Blood culture)", "count": 0},
+                {"scope": "검사1", "task": "nasal swap culture", "count": 0},
+                {"scope": "검사1", "task": "suction tip culture", "count": 0},
+                {"scope": "검사1", "task": "동맥 천자를 통한 동맥혈 채취", "count": 0},
+                {"scope": "검사1", "task": "응급 상황에서의 동맥혈 채취", "count": 0},
+                {"scope": "검사2", "task": "심전도(19:00 처방 부터 수행)", "count": 0},
+                {"scope": "검사2", "task": "초음파(잔뇨량체크)", "count": 0},
+                {"scope": "검사2", "task": "wound swab, culture", "count": 0},
+                {"scope": "검사2", "task": "직장 검체 채취(rectal swab)", "count": 0},
+                {"scope": "검사2", "task": "직장 수지 검사(DRE)", "count": 0},
+                {"scope": "검사2", "task": "COVID-19 검사", "count": 0},
+                {"scope": "치료 및 처치1", "task": "단순 드레싱(일반, 시술 상처 등)", "count": 0},
+                {"scope": "치료 및 처치1", "task": "복합 드레싱(catheter, tube등)<br/>**수술부위는 급성기 이후 가능", "count": 0},
+                {"scope": "치료 및 처치1", "task": "발사 자체(stitch out)", "count": 0},
+                {"scope": "치료 및 처치1", "task": "배액관 제거(흉강 배액관, 복강 배액관, 창상 등)<br/>**chest tube, pericardial cath, Homovac, Barovac 제외", "count": 0},
+                {"scope": "치료 및 처치1", "task": "누공 관리 및 제거<br>(위루관 또는 장루관, 방광루관 등)", "count": 0},
+                {"scope": "치료 및 처치2", "task": "유치 도뇨관(foley catheter) 삽입<br>★소아는 의사가 실행", "count": 0},
+                {"scope": "치료 및 처치2", "task": "각종 카테터 제거<br>(Mahurkar, Perm, PICC, chemoport 등)", "count": 0},
+                {"scope": "치료 및 처치2", "task": "C-line 제거 ★RRT 간호사 수행", "count": 0},
+                {"scope": "치료 및 처치2", "task": "Chemoport needing", "count": 0},
+                {"scope": "치료 및 처치2", "task": "Tracheostomy tube 드레싱", "count": 0},
+                {"scope": "치료 및 처치2", "task": "감염 욕창드레싱", "count": 0},
+                {"scope": "치료 및 처치2", "task": "혈관 중재적 시술 후 지혈용 Q-pad 제거", "count": 0},
+                {"scope": "치료 및 처치2", "task": "Retension enema", "count": 0},
+                {"scope": "치료 및 처치2", "task": "Tube irrigation<br>(PCD, PTBD, PTBGD, Bladder, L tube 등)", "count": 0},
+                {"scope": "치료 및 처치2", "task": "Rectal tube insertion", "count": 0},
+                {"scope": "치료 및 처치2", "task": "A-line insertion", "count": 0},
+                {"scope": "중환자 관리", "task": "응급상황 심폐소생술", "count": 0},
+                {"scope": "중환자 관리", "task": "응급약물 투여", "count": 0},
+                {"scope": "중환자 관리", "task": "L-tube 발관", "count": 0},
+                {"scope": "동의서 작성", "task": "검사 및 시술 동의서 초안 작성<br>★의사작성: 수숭, 마취, 응급수혈, DNR, 무연고자환자관련", "count": 0},
+                {"scope": "환자 평가/교육", "task": "환자,보호자 교육 및 상담", "count": 0},
+                {"scope": "환자 평가/교육", "task": "중증환자 검사를 위한 이송 모니터링 담당", "count": 0},
+                {"scope": "기타", "task": "Drainage bag change", "count": 0},
+                {"scope": "기타", "task": "진정환자 모니터링", "count": 0},
+                {"scope": "기타", "task": "Shaving", "count": 0},
+                {"scope": "기타", "task": "사후처치 **Suture 제외", "count": 0},
+            ];
+        
+            const getStorageKey = (key, code) => `${key}_${code}`;
+            
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('main', () => ({
+                    locations,
+                    selectedCode: code,
+                    currentCode: code,
+                    items: [],
+                    etcData: '',
+                    etcTimer: null,
+        
+                    init() {
+                        if(code == '') return;
+                        this.checkDate();
+                        this.loadData();
+                    },
+        
+                    changeLocation(value) {
+                        // window.location.href = '#' + value;
+                        history.pushState(null, '', '#' + value); // 해시 URL만 변경
+                        window.location.reload();
+                    },
+        
+                    checkDate() {
+                        const savedDate = localStorage.getItem(getStorageKey('saved_date', this.currentCode));
+                        if(!savedDate) {
+                            localStorage.setItem(getStorageKey('saved_date', this.currentCode), new Date().toLocaleDateString());
+                            localStorage.setItem(getStorageKey('etc', this.currentCode), '');
+                        } else {
+                            const current = new Date();
+                            const saved = new Date(savedDate);
+                            
+                            current.setHours(0, 0, 0, 0);
+                            saved.setHours(0, 0, 0, 0);
+                            
+                            if(current.getTime() > saved.getTime()) {
+                                localStorage.removeItem(getStorageKey('report', this.currentCode));
+                                localStorage.setItem(getStorageKey('saved_date', this.currentCode), new Date().toLocaleDateString());
+                                localStorage.setItem(getStorageKey('etc', this.currentCode), '');
+                            }
+                        }
+                    },
+        
+                    loadData() {
+                        const savedReport = localStorage.getItem(getStorageKey('report', this.currentCode));
+                        this.etcData = localStorage.getItem(getStorageKey('etc', this.currentCode)) || '';
+        
+                        if (!savedReport) {
+                            this.items = defaultItems;
+                            localStorage.setItem(getStorageKey('report', this.currentCode), JSON.stringify(this.items));
+                        } else {
+                            this.items = JSON.parse(savedReport);
+                        }
+                    },
+        
+                    saveEtcData(value) {
+                        clearTimeout(this.etcTimer);
+                        this.etcTimer = setTimeout(() => {
+                            localStorage.setItem(getStorageKey('etc', this.currentCode), value);
+                        }, 1000);
+                    },
+        
+                    setData(item, count) {
+                        if (item.count + count < 0) return;
+                        item.count += count;
+                        localStorage.setItem(getStorageKey('report', this.currentCode), JSON.stringify(this.items));
+                    }
+                }))
+            })
+            </script>
+		</div>
+        <script>
+            var hostUrl = "assets/";        </script>
+                    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+                            <script src="./assets/plugins/global/plugins.bundle.js" is:inline></script>
+                            <script src="./assets/js/scripts.bundle.js" is:inline></script>
+
+		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>    
+			</body>
+    <!--end::Body-->
+</html>
+
