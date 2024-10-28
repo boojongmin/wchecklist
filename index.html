@@ -84,10 +84,10 @@
                 </div>
             </div>
 
-            <div class="card shadow-sm" x-show="currentCode == ''">
+            <div class="card shadow-sm" x-show="!!currentDepth == false">
                 <div class="card-body">
                     <div class="text-center">
-                        <h2>코드를 선택해주세요</h2>
+                        <h2>코드와 부서를 선택해주세요</h2>
                     </div>
                 </div>
             </div>
@@ -245,6 +245,7 @@
                     },
 
                     selectMainCode(value) {
+                        if(confirm('코드를 변경하면 기존에 입력한 정보가 삭제됩니다.') == false) return;
                         history.pushState(null, '', '#' + value);
                         window.location.reload();
                     },
