@@ -143,29 +143,32 @@
             const [code, depth] = hash.split('|');
 
             const codeMap = [
-                { "code": "W01", "depths": ["13서", "12동"], "callphone": "85163(#1)", "position": "13서" },
-                { "code": "W02", "depths": ["11동", "11서"], "callphone": "85164(#2)", "position": "11서" },
-                { "code": "W03", "depths": ["10동", "10서", "완화", "이식"], "callphone": "85165(#3)", "position": "10서" },
-                { "code": "W04", "depths": ["9동", "SU", "13동"], "callphone": "85166(#4)", "position": "9동" },
-                { "code": "W05", "depths": ["9서"], "callphone": "85167(#5)", "position": "9서" },
-                { "code": "W06", "depths": ["8동", "8서"], "callphone": "85168(#6)", "position": "8서" },
-                { "code": "W07", "depths": ["7동", "7서", "6동"], "callphone": "85169(#7)", "position": "7서" },
-                { "code": "W08", "depths": ["6서"], "callphone": "85170(#8)", "position": "6서" },
-                { "code": "W09", "depths": ["5서", "4서"], "callphone": "85171(#9)", "position": "5서" },
-                { "code": "W10", "depths": ["13서", "12동", "11동"], "callphone": "85163(#1)", "position": "13서" },
-                { "code": "W11", "depths": ["13동", "11서", "10동", "10서", "완화", "이식"], "callphone": "85164(#2)", "position": "11서" },
-                { "code": "W12", "depths": ["9동", "9서", "SU", "8동", "8서"], "callphone": "85168(#6)", "position": "8서" },
-                { "code": "W13", "depths": ["7동", "7서", "6동"], "callphone": "85169(#7)", "position": "7서" },
-                { "code": "W14", "depths": ["6서", "5서", "4서"], "callphone": "85171(#9)", "position": "5서" },
-                { "code": "W15", "depths": ["13서", "12동", "12서", "11동", "11서", "10동", "10서", "완화", "이식"], "callphone": "85163(#1)", "position": "13서" },
-                { "code": "W16", "depths": ["13동", "9동", "9서", "SU", "8동", "8서"], "callphone": "85168(#6)", "position": "8서" },
-                { "code": "W17", "depths": ["7동", "7서", "6동", "6서", "5서", "4서"], "callphone": "85169(#7)", "position": "7서" },
-                { "code": "W18", "depths": ["9동", "SU", "9서"], "callphone": "85166(#4)", "position": "9동" },
-                { "code": "I01", "depths": ["5ICU", "NCUA"], "callphone": "85172(#10)", "position": "5ICU" },
-                { "code": "I02", "depths": ["ICUA", "ICUB", "CCU", "NCUB"], "callphone": "85175(#11)", "position": "ICUA" },
-                { "code": "I03", "depths": ["5ICU", "NCUA", "ICUA", "ICUB", "CCU", "NCUB"], "callphone": "85172(#10)", "position": "5ICU" },
-                { "code": "I04", "depths": ["5ICU", "NCUA", "ICUA", "ICUB", "CCU", "NCUB"], "callphone": "85172(#10)", "position": "5ICU" },
-                { "code": "ET", "depths": ["T51W", "T41W", "TICUC", "TICUB", "TICUA", "E41W", "EICU", "ER"], "callphone": "85176(#12),85177(#13)", "position": "ER" },
+                { "code": "W1", "depths": ["13동", "13서", "12동"], "callphone": "85163", "position": "13서" },
+                { "code": "W2", "depths": ["11동", "11서"], "callphone": "85164", "position": "11서" },
+                { "code": "W3", "depths": ["10서", "10동", "완화", "이식"], "callphone": "85165", "position": "10서" },
+                { "code": "W4", "depths": ["9동", "SU", "9서"], "callphone": "85167", "position": "9서" },
+                { "code": "W5", "depths": ["8동", "8서"], "callphone": "85168", "position": "8서" },
+                { "code": "W6", "depths": ["7동", "7서", "6동"], "callphone": "85169", "position": "7서" },
+                { "code": "W7", "depths": ["6서"], "callphone": "85170", "position": "6서" },
+                { "code": "W8", "depths": ["5서", "4서", "분만실"], "callphone": "85171", "position": "5서" },
+                { "code": "W9", "depths": ["13동", "13서", "12동", "11동"], "callphone": "85163", "position": "13서" },
+                { "code": "W10", "depths": ["11서", "10서", "10동", "완화", "이식", "9동", "SU", "9서"], "callphone": "85167", "position": "9서" },
+                { "code": "W11", "depths": ["8동", "8서", "7동", "7서", "6서"], "callphone": "85168", "position": "8서" },
+                { "code": "W12", "depths": ["6동", "5서", "4서", "분만실"], "callphone": "85171", "position": "5서" },
+                { "code": "W13", "depths": ["13동", "13서", "12동", "11동", "11서", "10서", "10동", "완화", "이식", "9동", "SU", "9서"], "callphone": "85163", "position": "13서" },
+                { "code": "W14", "depths": ["8동", "8서", "7동", "7서", "6서", "6동", "5서", "4서", "분만실"], "callphone": "85171", "position": "5서" },
+                { "code": "W15", "depths": ["13동", "13서", "12동", "11동", "11서"], "callphone": "85163", "position": "13서" },
+                { "code": "W16", "depths": ["10서", "10동", "완화", "이식", "9동", "SU", "9서", "9동", "8서"], "callphone": "85167", "position": "9서" },
+                { "code": "W17", "depths": ["7동", "7서", "6동", "6서", "5서", "4서", "분만실"], "callphone": "85171", "position": "5서" },
+                { "code": "W18", "depths": ["11서", "10서", "10동", "완화", "이식"], "callphone": "85165", "position": "10서" },
+                { "code": "W19", "depths": ["9동", "SU", "9서", "8동", "8서"], "callphone": "85167", "position": "9서" },
+                { "code": "W20", "depths": ["6서", "5서", "4서", "분만실"], "callphone": "85171", "position": "5서" },
+                { "code": "T1", "depths": ["T51W", "T41W", "TICUA", "TICUB", "TICUC"], "callphone": "85166", "position": "T41W" },
+                { "code": "E1/E2", "depths": ["ER", "EICU", "E41W"], "callphone": "85176/85177", "position": "ER" },
+                { "code": "I1", "depths": ["5ICU", "NCUA"], "callphone": "85172", "position": "5ICU" },
+                { "code": "I2", "depths": ["3ICUA", "3ICUB", "CCU", "NCUB"], "callphone": "85175", "position": "3ICUA" },
+                { "code": "I3", "depths": ["5ICU", "NCUA", "NCUB", "3ICUA", "3ICUB", "CCU"], "callphone": "85172", "position": "5ICU" },
+                { "code": "I4", "depths": ["5ICU", "NCUA", "NCUB", "3ICUA", "3ICUB", "CCU"], "callphone": "85172", "position": "5ICU" },
             ];
 
 
@@ -246,7 +249,7 @@
                     },
 
                     selectMainCode(value) {
-                        if(confirm('코드를 변경하면 기존에 입력한 정보가 삭제됩니다.') == false) return;
+                        this.resetAllData()
                         history.pushState(null, '', '#' + value);
                         window.location.reload();
                     },
